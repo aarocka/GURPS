@@ -1,2 +1,2 @@
 # GURPS
-This is hour code.
+This is our code.
