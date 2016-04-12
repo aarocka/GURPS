@@ -6,12 +6,12 @@ namespace DiceRoll
 	{
 		private int dice;//the number of d6s used
 		private int adds;//the number added to the roll
-		private int result;
+		int result{get; set;}
 		public DiceRoll (int dice, int adds)
 		{
 			this.dice = dice;
 			this.adds = adds;
-			result = roll();
+			result = roll()
 		}
 
 		public int roll()
