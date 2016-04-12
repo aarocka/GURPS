@@ -11,7 +11,7 @@ namespace DiceRoll
 		{
 			this.dice = dice;
 			this.adds = adds;
-			result = roll()
+			result = roll ();
 		}
 
 		public int roll()

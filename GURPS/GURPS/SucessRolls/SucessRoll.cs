@@ -24,6 +24,15 @@ namespace SucessRoll
 			else
 				hasSucceeded = false;
 
+			if (hasSucceeded = true) {
+				sucMargin = skillLvl - r;
+				failMargin = null;
+			} else {
+				failMargin = r - skillLvl;
+				sucMargin = null
+			}
+
+
 
 			
 		}
