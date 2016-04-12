@@ -14,16 +14,20 @@ namespace SucessRoll
 		{
 			this.modifier = modifier;
 			this.skillLvl = skillLvl;
+			roll ();
 		}
 		public void roll()
 		{
+			//roll 3d6
 			DiceRoll r = new DiceRoll (3, 0);
 
+			//determine if roll has suceeded
 			if (r.result () <= (skillLvl + modifier))
 				hasSucceeded = true;
 			else
 				hasSucceeded = false;
 
+			//determin margin of failure or sucess
 			if (hasSucceeded = true) {
 				sucMargin = skillLvl - r;
 				failMargin = null;
