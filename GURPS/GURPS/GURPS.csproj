@@ -35,5 +35,6 @@
     <Compile Include="CharacterDriver.cs" />
     <Compile Include="DiceRoll.cs" />
     <Compile Include="Skill.cs" />
+    <Compile Include="CombatShell.cs" />
   </ItemGroup>
 </Project>
