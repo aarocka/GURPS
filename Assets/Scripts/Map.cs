@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+[ExecuteInEditMode]
 public class Map : MonoBehaviour {
 
 	public GameObject hexPrefab;
@@ -8,8 +9,8 @@ public class Map : MonoBehaviour {
 	// This is NOT representative of the amount of 
 	// world space that we're going to take up.
 	// (i.e. our tiles might be more or less than 1 Unity World Unit)
-	int width = 64;
-	int height = 40;
+	public int width = 64;
+	public int height = 40;
 
 	float xOffset = 0.882f;
 	float zOffset = 0.764f;
