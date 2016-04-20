@@ -15,6 +15,7 @@ public class HexGrid : EditorWindow {
 	void OnGUI(){
 		GUILayout.Label ("Hex Grid Creator", EditorStyles.boldLabel);
 		mapObjectName = EditorGUILayout.TextField ("Text Field", mapObjectName);
+		//prefabTemplate = EditorGUILayout.ObjectField(prefabTemplate, typeof(GameObject), true);
 		gridWidth = EditorGUILayout.IntField ("Field Width", gridWidth);
 		gridHeight = EditorGUILayout.IntField ("Field Height", gridHeight);
 		if (GUILayout.Button ("Hello")) {
