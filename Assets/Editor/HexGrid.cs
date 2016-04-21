@@ -6,8 +6,8 @@ public class HexGrid : EditorWindow {
 	int gridWidth = 2;
 	int gridHeight = 2;
 
-	string hexPrefabName = "";
-
+	string parentName = "";
+	Object hexPrefab;
 	float xOffset = 0.882f;
 	float zOffset = 0.764f;
 
@@ -18,16 +18,12 @@ public class HexGrid : EditorWindow {
 	}
 	void OnGUI(){
 		GUILayout.Label ("Hex Grid Creator", EditorStyles.boldLabel);
-		hexPrefabName = EditorGUILayout.TextField ("Text Field", hexPrefabName);
-		//prefabTemplate = EditorGUILayout.ObjectField(prefabTemplate, typeof(GameObject), true);
+		parentName = EditorGUILayout.TextField ("Text Field", parentName);
+		hexPrefab = EditorGUILayout.ObjectField(hexPrefab, typeof(GameObject), true);
 		gridWidth = EditorGUILayout.IntField ("Field Width", gridWidth);
 		gridHeight = EditorGUILayout.IntField ("Field Height", gridHeight);
 				
 		if (GUILayout.Button ("Hello")) {
-			//set hexPrefab to a game object with the name hexPrefabName
-			Object hexPrefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Hex.prefab", typeof(GameObject));
-
-			//TODO Add creation
 			Debug.Log ("Creating Grid Size " +gridWidth+"x"+gridHeight);
 
 			for (int x = 0; x < gridWidth; x++) {
@@ -49,7 +45,7 @@ public class HexGrid : EditorWindow {
 					hex_go.GetComponent<Hex>().x = x;
 					hex_go.GetComponent<Hex>().y = y;
 
-					// For a cleaner hierachy, parent this hex to the map
+					// TODO parent generated hex tiles to a game object of name parentName
 					//hex_go.transform.SetParent(this.transform);
 
 					// TODO: Quill needs to explain different optimization later...
