@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 public class Hex : MonoBehaviour {
 
 	// Our coordinates in the map array

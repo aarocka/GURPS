@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 [ExecuteInEditMode]
+
 public class Map : MonoBehaviour {
 
 	public GameObject hexPrefab;
@@ -43,10 +44,12 @@ public class Map : MonoBehaviour {
 				// TODO: Quill needs to explain different optimization later...
 				hex_go.isStatic = true;
 
+
 			}
 		}
 
 	}
+		
 	
 	// Update is called once per frame
 	void Update () {
