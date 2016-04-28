@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class Mouse : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
+    Unit player;
+    // Use this for initialization
+    void Start () {
+       player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,14 +29,20 @@ public class Mouse : MonoBehaviour {
             //Move player to selected tile
             if (Input.GetMouseButton(1))
             {
+                //if we right click a hex
                 if (mousedOverObj.GetComponent<Hex>() != null)
                 {
                     Debug.Log("U right clicked a hex tile");
+                    player.destination = mousedOverObj.transform.position;
+                }
+                //if we right click a unit
+                else if (mousedOverObj.GetComponent<Unit>()!=null)
+                {
+                    Debug.Log("You right clicked a unit");
                 }
             }
 
         }
 	}
-
    
 }
