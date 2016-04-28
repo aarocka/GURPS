@@ -5,7 +5,9 @@ public class Mouse : MonoBehaviour {
     Unit player;
     // Use this for initialization
     void Start () {
-       player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>();
+        //Finds a gameobject that is tagged with player
+        //We now have access to class unit
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>();
     }
 	
 	// Update is called once per frame
@@ -32,6 +34,11 @@ public class Mouse : MonoBehaviour {
                 //if we right click a hex
                 if (mousedOverObj.GetComponent<Hex>() != null)
                 {
+                    /* Ideally we should be passing the unit script the tile we selected
+                     * rather than it's coord's. This way it might be easier to implement
+                     * pathfinding or only allow movement to adjecent tiles. That kind of
+                     * logic would be handled through the Unit script.
+                     */
                     Debug.Log("U right clicked a hex tile");
                     player.destination = mousedOverObj.transform.position;
                 }
