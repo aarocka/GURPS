@@ -15,12 +15,13 @@ public class Mouse : MonoBehaviour {
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hitInfo;
-
+        
+        //If the mouse is hovering over something
         if (Physics.Raycast(mouseRay, out hitInfo) ){
-            GameObject mousedOverObj = hitInfo.collider.transform.gameObject;
-            Debug.Log("Mouse is over something" + hitInfo.collider.transform.parent.name);
+            GameObject mousedOverObj = hitInfo.collider.transform.parent.gameObject;
+            //Debug.Log("Are hovering over" + hitInfo.collider.transform.parent.name);
 
-            if (Input.GetButton(0))
+            if (Input.GetMouseButton(0))
             {
                //some stubbed function for attacking things i guess
             }
@@ -28,9 +29,14 @@ public class Mouse : MonoBehaviour {
             //Move player to selected tile
             if (Input.GetMouseButton(1))
             {
-                Debug.Log("U clikd");
+                if (mousedOverObj.GetComponent<Hex>() != null)
+                {
+                    Debug.Log("U right clicked a hex tile");
+                }
             }
 
         }
 	}
+
+   
 }
