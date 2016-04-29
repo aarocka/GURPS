@@ -59,10 +59,11 @@ public class Character : MonoBehaviour {
 				
 
 	}
+
 	void setHealth(){
-		health.text = totalHealth.ToString () + "/" + currentHealth.ToString ();
+		health.text = "Player HP: " + currentHealth.ToString () + "/" + totalHealth.ToString ();
 	}
 	void setActionPoints(){
-		actionPoints.text = totalActionPoints.ToString () + "/" + currentActionPoints.ToString ();
+		actionPoints.text = "Player AP; " + currentActionPoints.ToString () + "/" + totalActionPoints.ToString ();
 	}
 }
