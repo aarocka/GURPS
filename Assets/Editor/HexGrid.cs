@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections;
+using System.Collections.Generic;
 
 public class HexGrid : EditorWindow {
-	int gridWidth = 2;
-	int gridHeight = 2;
+	int gridWidth = 21;
+	int gridHeight = 21;
 
 	string parentName = "";
 	Object hexPrefab;
 	float xOffset = 0.882f;
 	float zOffset = 0.764f;
+
 
 	public int hiworld= 1;
 	[MenuItem ("Window/Hex Creator")]
@@ -23,9 +24,9 @@ public class HexGrid : EditorWindow {
 		gridWidth = EditorGUILayout.IntField ("Field Width", gridWidth);
 		gridHeight = EditorGUILayout.IntField ("Field Height", gridHeight);
 				
-		if (GUILayout.Button ("Hello")) {
+		if (GUILayout.Button ("Generate")) {
 			Debug.Log ("Creating Grid Size " +gridWidth+"x"+gridHeight);
-
+		
 			for (int x = 0; x < gridWidth; x++) {
 				for (int y = 0; y < gridHeight; y++) {
 
@@ -57,4 +58,8 @@ public class HexGrid : EditorWindow {
 
 		}
 	}
+
+						
 }
+
+
