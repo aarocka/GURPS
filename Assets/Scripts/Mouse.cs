@@ -14,7 +14,7 @@ public class Mouse : MonoBehaviour {
 	void Update () {
 
         //TODO handle touch screen
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray mouseRay = Camera.current.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hitInfo;
         

@@ -11,7 +11,7 @@ public class Targeting : MonoBehaviour {
 	public Text targetHP;
 	// Use this for initialization
 	void Start () {
-	
+		player = GameObject.FindWithTag("Player").GetComponent<Character> ();
 	}
 	
 	// Update is called once per frame
@@ -24,7 +24,7 @@ public class Targeting : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.current.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit = new RaycastHit();
-			if(Physics.Raycast(ray, out hit, 1000)){
+			if(Physics.Raycast(ray, out hit)){
 				target = hit.collider.GetComponent<Character>();
 				Debug.Log("target selected");
 
