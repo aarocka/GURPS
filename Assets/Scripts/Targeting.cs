@@ -4,8 +4,10 @@ using System.Collections;
 
 public class Targeting : MonoBehaviour {
 
+	public Camera cam;
 	public Character target;
 	public Character player;
+
 
 	public Text targetAP;
 	public Text targetHP;
@@ -19,10 +21,12 @@ public class Targeting : MonoBehaviour {
 		aquireTarget ();
 	}
 
-	//this functio
+	//this function
 	void aquireTarget(){
+
 		if (Input.GetMouseButtonDown (0)) {
-			Ray ray = Camera.current.ScreenPointToRay (Input.mousePosition);
+			Ray ray = new Ray ();
+			ray = cam.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit = new RaycastHit();
 			if(Physics.Raycast(ray, out hit)){
 				target = hit.collider.GetComponent<Character>();
@@ -31,13 +35,16 @@ public class Targeting : MonoBehaviour {
 			}
 		}
 	}
+
+	//this displays the targets health in the UI
 	void setTargetStats(){
 		targetAP.text = ("TargetAP: " + target.currentActionPoints + "/" + target.totalActionPoints);
-		targetHP.text = ("TargetAP: " + target.currentHealth + "/" + target.totalHealth);
+		targetHP.text = ("TargetHP: " + target.currentHealth + "/" + target.totalHealth);
 
 	}
-	void attackTarget(){
+	public void attackTarget(){
 		player.attack (target, 0, 0);
+		setTargetStats();
 		
 	}
 }

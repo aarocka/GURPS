@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class Mouse : MonoBehaviour {
-    Unit player;
+	public Camera cam;
+	Unit player;
     // Use this for initialization
     void Start () {
         //Finds a gameobject that is tagged with player
@@ -14,7 +15,7 @@ public class Mouse : MonoBehaviour {
 	void Update () {
 
         //TODO handle touch screen
-        Ray mouseRay = Camera.current.ScreenPointToRay(Input.mousePosition);
+        Ray mouseRay = cam.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hitInfo;
         

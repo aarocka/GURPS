@@ -12,15 +12,15 @@ public class Character : MonoBehaviour {
 	public string charName{ get; set;}
 	public double posX{ get; set;}
 	public double posY{ get; set;}
-	public int playerNumber{ get; set; }
+	public int playerNumber{ get; set; }//player 1 player 2 ect.
 	public bool isDead{ get; set;}
 
 	//stats
-	int damageDice{get; set;}
-	int damageAdds{ get; set;}
-	int attackMod{ get; set;}//this is the number added or subtracted to the 3d6 rolled for attack
-	int attackSkillLvl{get; set;}
-	int activeDefense{ get; set;}
+	int damageDice;
+	int damageAdds;
+	int attackMod;//this is the number added or subtracted to the 3d6 rolled for attack
+	int attackSkillLvl;
+	int activeDefense;
 
 	public Text health;
 	public Text actionPoints;
@@ -34,6 +34,11 @@ public class Character : MonoBehaviour {
 		currentHealth = 9;
 		totalActionPoints = 10;
 		currentActionPoints = 9;
+
+		damageDice = 2;
+		damageAdds = 3;
+		attackSkillLvl = 17;
+		activeDefense = 8;
 
 		setHealth ();
 		setActionPoints ();
@@ -52,7 +57,7 @@ public class Character : MonoBehaviour {
 
 		if(attackRoll <= attackSkillLvl){
 			if(enemyDefenseRoll >= enemy.activeDefense){
-				enemy.totalHealth = enemy.totalHealth - damageRoll;
+				enemy.currentHealth = enemy.currentHealth - damageRoll;
 			}
 		}
 
