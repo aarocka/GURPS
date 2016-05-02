@@ -41,7 +41,7 @@ public class Mouse : MonoBehaviour
                 //if we right click a hex
                 if (mousedOverObj.GetComponent<Hex>() != null)
                 {
-                    Debug.Log("You have right clicked a hex tile");
+                    Debug.Log("You have right clicked " + mousedOverObj.name);
                     if (player.moveCounter < 5)
                     {
                         player.moveTo(mousedOverObj);
