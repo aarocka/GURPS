@@ -35,29 +35,28 @@ public class Mouse : MonoBehaviour {
 					//if we right click a hex
 					if (mousedOverObj.GetComponent<Hex> () != null ) {
 						/* Ideally we should be passing the unit script the tile we selected
-                     * rather than it's coord's. This way it might be easier to implement
-                     * pathfinding or only allow movement to adjecent tiles. That kind of
-                     * logic would be handled through the Unit script.
-                     */
+                         * rather than it's coord's. This way it might be easier to implement
+                        * pathfinding or only allow movement to adjecent tiles. That kind of
+                        * logic would be handled through the Unit script.
+                        */
 
-						Debug.Log ("You have right clicked a hex tile");
-					if( player.moveCounter < 5) {
-						if ((mousedOverObj.transform.position.x - player.destination.x <= 0.8821f &&
-							mousedOverObj.transform.position.z - player.destination.z <= 0.7641f) &&
-							(mousedOverObj.transform.position.x - player.destination.x >= -0.8821f &&
-								mousedOverObj.transform.position.z - player.destination.z >= -0.7641f)) {
-							//moves player to new tile
-							player.destination = mousedOverObj.transform.position;
-
-							player.moveCounter++;
-						}
-					}
+					    Debug.Log ("You have right clicked a hex tile");
+					    if( player.moveCounter < 5) {
+						    if ((mousedOverObj.transform.position.x - player.destination.x <= 0.8821f &&
+							    mousedOverObj.transform.position.z - player.destination.z <= 0.7641f) &&
+							    (mousedOverObj.transform.position.x - player.destination.x >= -0.8821f &&
+                                mousedOverObj.transform.position.z - player.destination.z >= -0.7641f)) {
+							        //moves player to new tile
+							        player.destination = mousedOverObj.transform.position;
+        							player.moveCounter++;
+		    			    }
+					    }
 					} 
 				}
                 //if we right click a unit
                 else if (mousedOverObj.GetComponent<Unit> () != null) {
 						Debug.Log ("You right clicked a unit");
 					}
-				}
+			}
         }
 	}
