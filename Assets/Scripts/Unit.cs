@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
     public Vector3 destination;
 
     float speed = 2;
-
+    public int moveCounter = 0;
     // Use this for initialization
     void Start()
     {
