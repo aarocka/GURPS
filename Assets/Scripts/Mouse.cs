@@ -42,14 +42,7 @@ public class Mouse : MonoBehaviour {
 
 					    Debug.Log ("You have right clicked a hex tile");
 					    if( player.moveCounter < 5) {
-						    if ((mousedOverObj.transform.position.x - player.destination.x <= 0.8821f &&
-							    mousedOverObj.transform.position.z - player.destination.z <= 0.7641f) &&
-							    (mousedOverObj.transform.position.x - player.destination.x >= -0.8821f &&
-                                mousedOverObj.transform.position.z - player.destination.z >= -0.7641f)) {
-							        //moves player to new tile
-							        player.destination = mousedOverObj.transform.position;
-        							player.moveCounter++;
-		    			    }
+                            player.moveTo(mousedOverObj);
 					    }
 					} 
 				}
