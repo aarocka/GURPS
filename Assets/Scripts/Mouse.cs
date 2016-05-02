@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Mouse : MonoBehaviour {
     Unit player;
-	int moveCounter=0;
 
 	// Use this for initialization
     void Start () {
@@ -42,7 +41,7 @@ public class Mouse : MonoBehaviour {
                      */
 
 						Debug.Log ("You have right clicked a hex tile");
-					if( moveCounter < 5) {
+					if( player.moveCounter < 5) {
 						if ((mousedOverObj.transform.position.x - player.destination.x <= 0.8821f &&
 							mousedOverObj.transform.position.z - player.destination.z <= 0.7641f) &&
 							(mousedOverObj.transform.position.x - player.destination.x >= -0.8821f &&
@@ -50,7 +49,7 @@ public class Mouse : MonoBehaviour {
 							//moves player to new tile
 							player.destination = mousedOverObj.transform.position;
 
-							moveCounter++;
+							player.moveCounter++;
 						}
 					}
 					} 
