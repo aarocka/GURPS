@@ -31,10 +31,11 @@ public class Unit : MonoBehaviour
 
     public void moveTo(GameObject tile)
     {
-        if((tile.transform.position.x - destination.x <= 0.8821f &&
+        if ((tile.transform.position.x - destination.x <= 0.8821f &&
            tile.transform.position.z - destination.z <= 0.7641f) &&
            (tile.transform.position.x - destination.x >= -0.8821f &&
-           tile.transform.position.z - destination.z >= -0.7641f)){
+           tile.transform.position.z - destination.z >= -0.7641f))
+        {
             destination = tile.transform.position;
             moveCounter++;
         }
