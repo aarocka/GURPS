@@ -25,17 +25,16 @@ public class Targeting : MonoBehaviour {
 	void aquireTarget(){
 
 		if (Input.GetMouseButtonDown (0)) {
-			Ray ray = new Ray ();
-			ray = cam.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hit = new RaycastHit();
+			Ray ray = cam.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
 			if(Physics.Raycast(ray, out hit)){
-				target = hit.collider.GetComponent<Character>();
-				Debug.Log("target selected");
+				GameObject mousedOverObj = hit.collider.transform.parent.gameObject;
+				Debug.Log("target selected " + hit.collider.transform.parent.name);
 
 			}
 		}
 	}
-
+	/*
 	//this displays the targets health in the UI
 	void setTargetStats(){
 		targetAP.text = ("TargetAP: " + target.currentActionPoints + "/" + target.totalActionPoints);
@@ -47,4 +46,5 @@ public class Targeting : MonoBehaviour {
 		setTargetStats();
 		
 	}
+	*/
 }
