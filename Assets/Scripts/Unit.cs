@@ -38,7 +38,9 @@ public class Unit : MonoBehaviour
         {
             destination = tile.transform.position;
             moveCounter++;
+            Debug.Log("Adjecent tile selected");
         }
+        else { Debug.Log("Tile not adjcent"); }
     }
 
 
