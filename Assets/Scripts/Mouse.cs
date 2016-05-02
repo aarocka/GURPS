@@ -51,7 +51,7 @@ public class Mouse : MonoBehaviour
             //if we right click a unit
             else if (mousedOverObj.GetComponent<Unit>() != null)
             {
-                Debug.Log("You right clicked a unit");
+                
             }
         }
     }
