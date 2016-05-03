@@ -42,7 +42,7 @@ public class NetCode : MonoBehaviour {
             
             playerObject.list[3].n = player.transform.position.x;
             playerObject.list[4].n = player.transform.position.z;
-            socket.Emit("playeUpdate", playerObject);
+            socket.Emit("playerUpdate", playerObject);
 
         }
 	}
@@ -106,6 +106,7 @@ public class NetCode : MonoBehaviour {
         float tempX = e.data.list[3].n;
         float tempY = e.data.list[4].n;
         Instantiate(playerPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
+        Camera.main.GetComponent<Mouse>().setPlayer();
     }
     public void OnSocketOpen(SocketIOEvent ev)
     {

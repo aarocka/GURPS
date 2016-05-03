@@ -10,10 +10,10 @@ public class Mouse : MonoBehaviour
     {
         //Finds a gameobject that is tagged with player
         //We now have access to class unit
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>();
+        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>();
 
     }
-
+    public void setPlayer() { player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>(); }
     // Update is called once per frame
     void Update()
     {
