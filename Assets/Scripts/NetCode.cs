@@ -9,9 +9,10 @@ public class NetCode : MonoBehaviour {
     public string nic = "";
     static string gameInfoString = "{\"gameID\":123456,\"turn\":1,\"gameStart\":true,\"players\":[{\"uid\":\"#NQwErTy\",\"playerNumber\":1,\"nicname\":\"Aaron\",\"posX\":0,\"posY\":0,\"maxHealth\":100,\"health\":100},{\"uid\":\"#NrJ6wYR9JK_IBFCGAAAA\",\"playerNumber\":2,\"nicname\":\"steve\",\"posX\":17.64,\"posY\":0,\"maxHealth\":100,\"health\":100}]}";
     static string playerObjectString = "{\"uid\":\"#NQwErTy\",\"playerNumber\":1,\"nicname\":\"Aaron\",\"posX\":0,\"posY\":0,\"maxHealth\":100,\"health\":100}";
-    JSONObject gameInfo = new JSONObject(gameInfoString);
-    JSONObject playerObject = new JSONObject(playerObjectString);
-
+    public JSONObject gameInfo = new JSONObject(gameInfoString);
+    public JSONObject playerObject = new JSONObject(playerObjectString);
+	public float playerTurn;
+	public float playerNumber;
     // Use this for initialization
     void Start () {
         GameObject go = GameObject.Find("SocketIO");
@@ -37,14 +38,13 @@ public class NetCode : MonoBehaviour {
             Debug.Log("joining game with username "+nic);
             socket.Emit("join", nic);
         }
-        else if (Input.GetKeyDown("e"))
+		else if (Input.GetKeyDown("e"))
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            
-            playerObject.list[3].n = player.transform.position.x;
-            playerObject.list[4].n = player.transform.position.z;
-            socket.Emit("playerUpdate", playerObject);
-
+			GameObject player = GameObject.FindGameObjectWithTag ("Player");
+			player.GetComponent<Unit> ().moveCounter = 0;
+			playerObject.list [3].n = player.transform.position.x;
+			playerObject.list [4].n = player.transform.position.z;
+			socket.Emit ("playerUpdate", playerObject);
         }
 	}
 
@@ -82,6 +82,7 @@ public class NetCode : MonoBehaviour {
     {
         //Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
         JSONObject players = (JSONObject)e.data.list[3];
+		playerTurn = e.data.list [1].n;
         //Debug.Log(players.list[0]);
 
         foreach (JSONObject j in players.list)
@@ -105,6 +106,7 @@ public class NetCode : MonoBehaviour {
         //Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
         playerObject = e.data;
         Debug.Log("You are player number" + e.data.list[1]);
+		playerNumber = e.data.list[1].n;
         float tempX = e.data.list[3].n;
         float tempY = e.data.list[4].n;
         GameObject temp = (GameObject)Instantiate(playerPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
@@ -114,6 +116,9 @@ public class NetCode : MonoBehaviour {
 
     public void updatePlayerPositions(SocketIOEvent e) {
         JSONObject players = (JSONObject)e.data.list[3];
+
+
+
         foreach (JSONObject j in players.list)
         {
             if (j.list[1].n != playerObject.list[1].n)
@@ -122,6 +127,8 @@ public class NetCode : MonoBehaviour {
                 temp.destination = new Vector3(j.list[3].n,0,j.list[4].n);
             }
         }
+
+
     }
     public void OnSocketOpen(SocketIOEvent ev)
     {

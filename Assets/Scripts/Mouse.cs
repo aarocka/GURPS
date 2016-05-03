@@ -36,7 +36,7 @@ public class Mouse : MonoBehaviour
             }
 
             //Move player to selected tile
-            if (Input.GetMouseButtonUp(1))
+			if (Input.GetMouseButtonUp(1) && GameObject.Find("NetCode").GetComponent<NetCode>().playerTurn == GameObject.Find("NetCode").GetComponent<NetCode>().playerNumber )
             {
                 //if we right click a hex
                 if (mousedOverObj.GetComponent<Hex>() != null)
