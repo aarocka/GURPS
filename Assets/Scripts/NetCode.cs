@@ -45,16 +45,13 @@ public class NetCode : MonoBehaviour {
 
         foreach (JSONObject j in players.list)
         {
+            if (j.list[1].n != playerObject.list[1].n)
+            {
+                Debug.Log("Spawned enemy:"+j);
+                float tempX = j.list[3].n;
+                float tempY = j.list[4].n;
 
-            Debug.Log(j.list[1]);
-            Debug.Log(playerObject.list[1]);
-            if (j.list[1].n == playerObject.list[1].n)
-            {
-                Debug.Log("This one is the player");
-            }
-            else
-            {
-                Debug.Log("spawned the enemy");
+                //TODO Spawn enemy prefab
             }
         }
 
@@ -69,49 +66,12 @@ public class NetCode : MonoBehaviour {
     {
         //Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
         Debug.Log("You are player number" + e.list[1]);
-        Debug.Log(e.keys[3] + ":" +e.list[3].n);
-        Debug.Log(e.keys[4] + ":" + e.list[4].n);
-        int tempX = (int)e.list[3].n;
-        int tempY = (int)e.list[4].n;        
-
+        float tempX = e.list[3].n;
+        float tempY = e.list[4].n;        
+        //TODO Spawn player prefab
     }
     public void OnSocketOpen(SocketIOEvent ev)
     {
         Debug.Log("updated socket id " + socket.sid);
-    }
-
-    void accessData(JSONObject obj)
-    {
-        switch (obj.type)
-        {
-            case JSONObject.Type.OBJECT:
-                for (int i = 0; i < obj.list.Count; i++)
-                {
-                    string key = (string)obj.keys[i];
-                    JSONObject j = (JSONObject)obj.list[i];
-                    Debug.Log(key);
-                    accessData(j);
-                }
-                break;
-            case JSONObject.Type.ARRAY:
-                foreach (JSONObject j in obj.list)
-                {
-                    accessData(j);
-                }
-                break;
-            case JSONObject.Type.STRING:
-                Debug.Log(obj.str);
-                break;
-            case JSONObject.Type.NUMBER:
-                Debug.Log(obj.n);
-                break;
-            case JSONObject.Type.BOOL:
-                Debug.Log(obj.b);
-                break;
-            case JSONObject.Type.NULL:
-                Debug.Log("NULL");
-                break;
-
-        }
     }
 }
