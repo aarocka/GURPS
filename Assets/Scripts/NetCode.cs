@@ -113,7 +113,15 @@ public class NetCode : MonoBehaviour {
     }
 
     public void updatePlayerPositions(SocketIOEvent e) {
-
+        JSONObject players = (JSONObject)e.data.list[3];
+        foreach (JSONObject j in players.list)
+        {
+            if (j.list[1].n != playerObject.list[1].n)
+            {
+                Unit temp = GameObject.Find(j.list[2].str).GetComponent<Unit>();
+                temp.destination = new Vector3(j.list[3].n,0,j.list[4].n);
+            }
+        }
     }
     public void OnSocketOpen(SocketIOEvent ev)
     {
