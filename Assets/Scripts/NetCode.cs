@@ -117,7 +117,7 @@ public class NetCode : MonoBehaviour {
     public void updatePlayerPositions(SocketIOEvent e) {
         JSONObject players = (JSONObject)e.data.list[3];
 
-
+		playerTurn = e.data.list [1].n;
 
         foreach (JSONObject j in players.list)
         {
