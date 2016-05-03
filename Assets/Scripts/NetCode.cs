@@ -16,11 +16,10 @@ public class NetCode : MonoBehaviour {
     void Start () {
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
-        //socket.On("open", OnSocketOpen);
-        //socket.On("playerJoined", spawnPlayer);
-        //socket.On("gameStarted", spawnEnemies);
-        spawnPlayer(playerObject);
-        spawnEnemies(gameInfo);
+        socket.On("playerJoined", spawnPlayerFromSocket);
+        socket.On("gameStarted", spawnEnemiesFromSocket);
+        //spawnPlayer(playerObject);
+        //spawnEnemies(gameInfo);
         
 
     }
@@ -36,6 +35,15 @@ public class NetCode : MonoBehaviour {
         {
             Debug.Log("joining game with username "+nic);
             socket.Emit("join", nic);
+        }
+        else if (Input.GetKeyDown("e"))
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            
+            playerObject.list[3].n = player.transform.position.x;
+            playerObject.list[4].n = player.transform.position.z;
+            socket.Emit("playeUpdate", playerObject);
+
         }
 	}
 
@@ -66,6 +74,37 @@ public class NetCode : MonoBehaviour {
         Debug.Log("You are player number" + e.list[1]);
         float tempX = e.list[3].n;
         float tempY = e.list[4].n;
+        Instantiate(playerPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
+    }
+
+    void spawnEnemiesFromSocket(SocketIOEvent e)
+    {
+        //Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
+        JSONObject players = (JSONObject)e.data.list[3];
+        //Debug.Log(players.list[0]);
+
+        foreach (JSONObject j in players.list)
+        {
+            if (j.list[1].n != playerObject.list[1].n)
+            {
+                Debug.Log("Spawned enemy:" + j);
+                float tempX = j.list[3].n;
+                float tempY = j.list[4].n;
+
+                Instantiate(enemyPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
+            }
+        }
+
+    }
+
+
+    public void spawnPlayerFromSocket(SocketIOEvent e)
+    {
+        //Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
+        playerObject = e.data;
+        Debug.Log("You are player number" + e.data.list[1]);
+        float tempX = e.data.list[3].n;
+        float tempY = e.data.list[4].n;
         Instantiate(playerPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
     }
     public void OnSocketOpen(SocketIOEvent ev)
