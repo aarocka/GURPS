@@ -4,6 +4,8 @@ using SocketIO;
 
 public class NetCode : MonoBehaviour {
     private SocketIOComponent socket;
+    public GameObject playerPrefab;
+    public GameObject enemyPrefab;
     public string nic = "";
     static string gameInfoString = "{\"gameID\":123456,\"turn\":1,\"gameStart\":true,\"players\":[{\"uid\":\"#NQwErTy\",\"playerNumber\":1,\"nicname\":\"Aaron\",\"posX\":0,\"posY\":0,\"maxHealth\":100,\"health\":100},{\"uid\":\"#NrJ6wYR9JK_IBFCGAAAA\",\"playerNumber\":2,\"nicname\":\"steve\",\"posX\":17.64,\"posY\":0,\"maxHealth\":100,\"health\":100}]}";
     static string playerObjectString = "{\"uid\":\"#NQwErTy\",\"playerNumber\":1,\"nicname\":\"Aaron\",\"posX\":0,\"posY\":0,\"maxHealth\":100,\"health\":100}";
@@ -28,7 +30,7 @@ public class NetCode : MonoBehaviour {
         if (Input.GetKeyDown("s"))
         {
             Debug.Log("Starting Game");
-            startGame();
+            socket.Emit("start", "something");
         }
         else if (Input.GetKeyDown("j"))
         {
@@ -51,24 +53,20 @@ public class NetCode : MonoBehaviour {
                 float tempX = j.list[3].n;
                 float tempY = j.list[4].n;
 
-                //TODO Spawn enemy prefab
+                Instantiate(enemyPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
             }
         }
 
     }
 
-    void startGame()
-    {
-        socket.Emit("start", "something");
-    }
 
     public void spawnPlayer(JSONObject e)
     {
         //Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
         Debug.Log("You are player number" + e.list[1]);
         float tempX = e.list[3].n;
-        float tempY = e.list[4].n;        
-        //TODO Spawn player prefab
+        float tempY = e.list[4].n;
+        Instantiate(playerPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
     }
     public void OnSocketOpen(SocketIOEvent ev)
     {
