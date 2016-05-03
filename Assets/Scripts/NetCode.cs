@@ -17,6 +17,14 @@ public class NetCode : MonoBehaviour {
         socket.On("open", OnSocketOpen);
         socket.On("playerJoined", spawnPlayer);
         socket.On("gameStarted", spawnEnemies);
+
+        Debug.Log(playerObject.list.Count);
+
+        for (int i = 0; i < playerObject.list.Count; i++)
+        {
+            Debug.Log(playerObject.keys[i] +":"+ playerObject.list[i]);
+        }
+
     }
 	
 	// Update is called once per frame
