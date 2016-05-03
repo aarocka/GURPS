@@ -5,13 +5,14 @@ using SocketIO;
 public class NetCode : MonoBehaviour {
     private SocketIOComponent socket;
     public string nic = "";
+    string encodedData = "{\"gameID\":123456,\"turn\":1,\"gameStart\":true,\"players\":[{\"uid\":\"#NrJ6wYR9JK_IBFCGAAAA\",\"playerNumber\":1,\"nicname\":\"Aaron\",\"posX\":0,\"posY\":0,\"maxHealth\":100,\"health\":100},{\"uid\":\"#NrJ6wYR9JK_IBFCGAAAA\",\"playerNumber\":2,\"nicname\":\"steve\",\"posX\":17.64,\"posY\":0,\"maxHealth\":100,\"health\":100}]}";
 	// Use this for initialization
 	void Start () {
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
         socket.On("open", OnSocketOpen);
-        socket.On("playerJoined", logMe);
-        socket.On("gameStarted", spawnEnimies);
+        socket.On("playerJoined", spawnPlayer);
+        socket.On("gameStarted", spawnEnemies);
     }
 	
 	// Update is called once per frame
@@ -28,9 +29,10 @@ public class NetCode : MonoBehaviour {
         }
 	}
 
-    void spawnEnimies(SocketIOEvent e)
+    void spawnEnemies(SocketIOEvent e)
     {
         Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
+        
     }
 
     void startGame()
@@ -38,9 +40,10 @@ public class NetCode : MonoBehaviour {
         socket.Emit("start", "something");
     }
 
-    public void logMe(SocketIOEvent e)
+    public void spawnPlayer(SocketIOEvent e)
     {
         Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
+        
     }
     public void OnSocketOpen(SocketIOEvent ev)
     {

@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     float speed = 2;
     public int moveCounter = 0;
     // Use this for initialization
+
     void Start()
     {
         destination = transform.position;
@@ -42,6 +43,8 @@ public class Unit : MonoBehaviour
         }
         else { Debug.Log("Tile not adjcent"); }
     }
+
+
 
 
 }
