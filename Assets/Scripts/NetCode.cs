@@ -18,6 +18,7 @@ public class NetCode : MonoBehaviour {
         socket = go.GetComponent<SocketIOComponent>();
         socket.On("playerJoined", spawnPlayerFromSocket);
         socket.On("gameStarted", spawnEnemiesFromSocket);
+        socket.On("turnEnded", updatePlayerPositions);
         //spawnPlayer(playerObject);
         //spawnEnemies(gameInfo);
         
@@ -91,7 +92,8 @@ public class NetCode : MonoBehaviour {
                 float tempX = j.list[3].n;
                 float tempY = j.list[4].n;
 
-                Instantiate(enemyPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
+                GameObject temp = (GameObject)Instantiate(enemyPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
+                temp.name = j.list[2].str;
             }
         }
 
@@ -105,8 +107,13 @@ public class NetCode : MonoBehaviour {
         Debug.Log("You are player number" + e.data.list[1]);
         float tempX = e.data.list[3].n;
         float tempY = e.data.list[4].n;
-        Instantiate(playerPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
+        GameObject temp = (GameObject)Instantiate(playerPrefab, new Vector3(tempX, 0, tempY), Quaternion.identity);
+        temp.name = e.data.list[2].str;
         Camera.main.GetComponent<Mouse>().setPlayer();
+    }
+
+    public void updatePlayerPositions(SocketIOEvent e) {
+
     }
     public void OnSocketOpen(SocketIOEvent ev)
     {
