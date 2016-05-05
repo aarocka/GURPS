@@ -30,22 +30,32 @@ public class NetCode : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown("s"))
         {
-            Debug.Log("Starting Game");
-            socket.Emit("start", "something");
+			startGame ();
+            
         }
         else if (Input.GetKeyDown("j"))
         {
-            Debug.Log("joining game with username "+nic);
-            socket.Emit("join", nic);
+			joinGame ();
         }
 		else if (Input.GetKeyDown("e"))
         {
-			GameObject player = GameObject.FindGameObjectWithTag ("Player");
-			player.GetComponent<Unit> ().moveCounter = 0;
-			playerObject.list [3].n = player.transform.position.x;
-			playerObject.list [4].n = player.transform.position.z;
-			socket.Emit ("playerUpdate", playerObject);
+			endTurn();
         }
+	}
+	public void startGame(){
+		Debug.Log("Starting Game");
+		socket.Emit("start", "something");
+	}
+	public void joinGame(){
+		Debug.Log("joining game with username "+nic);
+		socket.Emit("join", nic);
+	}
+	public void endTurn(){
+		GameObject player = GameObject.FindGameObjectWithTag ("Player");
+		player.GetComponent<Unit> ().moveCounter = 0;
+		playerObject.list [3].n = player.transform.position.x;
+		playerObject.list [4].n = player.transform.position.z;
+		socket.Emit ("playerUpdate", playerObject);
 	}
 
     void spawnEnemies(JSONObject e)
