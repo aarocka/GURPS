@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     float speed = 2;
     public int moveCounter = 0;
     // Use this for initialization
+
     void Start()
     {
         destination = transform.position;
@@ -31,17 +32,20 @@ public class Unit : MonoBehaviour
 
     public void moveTo(GameObject tile)
     {
+		//determine whether the player is ajacent to the tile he clicked
         if ((tile.transform.position.x - destination.x <= 0.8821f &&
            tile.transform.position.z - destination.z <= 0.7641f) &&
            (tile.transform.position.x - destination.x >= -0.8821f &&
            tile.transform.position.z - destination.z >= -0.7641f))
         {
             destination = tile.transform.position;
-            moveCounter++;
+			moveCounter++;//increment move counter
             Debug.Log("Adjecent tile selected");
         }
         else { Debug.Log("Tile not adjcent"); }
     }
+
+
 
 
 }

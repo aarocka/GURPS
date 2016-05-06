@@ -10,10 +10,10 @@ public class Mouse : MonoBehaviour
     {
         //Finds a gameobject that is tagged with player
         //We now have access to class unit
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>();
+        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>();
 
     }
-
+    public void setPlayer() { player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>(); }
     // Update is called once per frame
     void Update()
     {
@@ -36,7 +36,7 @@ public class Mouse : MonoBehaviour
             }
 
             //Move player to selected tile
-            if (Input.GetMouseButtonUp(1))
+			if (Input.GetMouseButtonUp(1))
             {
                 //if we right click a hex
                 if (mousedOverObj.GetComponent<Hex>() != null)
@@ -55,4 +55,13 @@ public class Mouse : MonoBehaviour
             }
         }
     }
+	public void aquireTarget(){
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+		if(Physics.Raycast(ray, out hit)){
+			GameObject mousedOverObj = hit.collider.transform.parent.gameObject;
+			Debug.Log("target selected " + hit.collider.transform.parent.name);
+
+		}
+	}
 }
