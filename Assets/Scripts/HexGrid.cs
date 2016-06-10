@@ -2,9 +2,9 @@
 using UnityEditor;
 using System.Collections.Generic;
 
-public class HexGrid : EditorWindow {
-	int mapSizeX= 21;
-	int mapSizeY = 21;
+public class HexGrid : MonoBehaviour {
+	public int mapSizeX= 21;
+	public int mapSizeY = 21;
 
 	string parentName = "";
 	Object hexPrefab;
@@ -30,14 +30,6 @@ public class HexGrid : EditorWindow {
 
 	}
 	private void generateHexGrid (){
-		GUILayout.Label ("Hex Grid Creator", EditorStyles.boldLabel);
-		parentName = EditorGUILayout.TextField ("Text Field", parentName);
-		hexPrefab = EditorGUILayout.ObjectField (hexPrefab, typeof(GameObject), true);
-		mapSizeX = EditorGUILayout.IntField ("Field Width", mapSizeX);
-		mapSizeY = EditorGUILayout.IntField ("Field Height", mapSizeY);
-
-		if (GUILayout.Button ("Generate")) {
-			Debug.Log ("Creating Grid Size " + mapSizeX + "x" + mapSizeY);
 
 			for (int x = 0; x < mapSizeX; x++) {
 				for (int y = 0; y < mapSizeY; y++) {
@@ -48,24 +40,23 @@ public class HexGrid : EditorWindow {
 					if (y % 2 == 1) {
 						xPos += xOffset / 2f;
 					}
+					TileType tt = tileTypes[ tiles[x,y] ];
 
-					GameObject hex_go = (GameObject)Instantiate (hexPrefab, new Vector3 (xPos, 0, y * zOffset), Quaternion.identity);
+				    GameObject go = (GameObject)Instantiate( tt.tileVisualPrefab, new Vector3(x, y, 0), Quaternion.identity );
+
 
 					// Name the gameobject something sensible.
-					hex_go.name = "Hex_" + x + "_" + y;
+					go.name = "Hex_" + x + "_" + y;
 
 					// Make sure the hex is aware of its place on the map
-					hex_go.GetComponent<Hex> ().x = x;
-					hex_go.GetComponent<Hex> ().y = y;
+			
 
-					// TODO parent generated hex tiles to a game object of name parentName
-					//hex_go.transform.SetParent(this.transform);
-
-					// TODO: Quill needs to explain different optimization later...
-					hex_go.isStatic = true;
+					ClickableTile ct = go.GetComponent<ClickableTile>();
+					ct.tileX = x;
+					ct.tileY = y;
+					ct.map = this;
 				}
 			}
-		}
 	}
 
 	void GenerateMapData() {
