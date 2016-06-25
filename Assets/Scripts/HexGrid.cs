@@ -17,18 +17,12 @@ public class HexGrid : MonoBehaviour {
 
 	Unit selectedUnit;
 
-
-	[MenuItem ("Window/Hex Creator")]
-
-	public static void  ShowWindow () {
-		EditorWindow.GetWindow(typeof(HexGrid));
-	}
-
-	void OnGUI(){
+	void Start(){
+		GenerateMapData ();
 		generateHexGrid ();
-
-
 	}
+
+
 	private void generateHexGrid (){
 
 			for (int x = 0; x < mapSizeX; x++) {
@@ -42,7 +36,7 @@ public class HexGrid : MonoBehaviour {
 					}
 					TileType tt = tileTypes[ tiles[x,y] ];
 
-				    GameObject go = (GameObject)Instantiate( tt.tileVisualPrefab, new Vector3(x, y, 0), Quaternion.identity );
+				    GameObject go = (GameObject)Instantiate( tt.tileVisualPrefab, new Vector3(xPos, 0, y * zOffset), Quaternion.identity );
 
 
 					// Name the gameobject something sensible.
@@ -72,24 +66,19 @@ public class HexGrid : MonoBehaviour {
 			}
 		}
 
-		// Make a big swamp area
-		for(x=3; x <= 5; x++) {
-			for(y=0; y < 4; y++) {
-				tiles[x,y] = 1;
-			}
-		}
+
 
 		// Let's make a u-shaped mountain range
-		tiles[4, 4] = 2;
-		tiles[5, 4] = 2;
-		tiles[6, 4] = 2;
-		tiles[7, 4] = 2;
-		tiles[8, 4] = 2;
+		tiles[4, 4] = 1;
+		tiles[5, 4] = 1;
+		tiles[6, 4] = 1;
+		tiles[7, 4] = 1;
+		tiles[8, 4] = 1;
 
-		tiles[4, 5] = 2;
-		tiles[4, 6] = 2;
-		tiles[8, 5] = 2;
-		tiles[8, 6] = 2;
+		tiles[4, 5] = 1;
+		tiles[4, 6] = 1;
+		tiles[8, 5] = 1;
+		tiles[8, 6] = 1;
 
 	}
 
