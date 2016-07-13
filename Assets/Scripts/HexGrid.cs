@@ -7,7 +7,6 @@ public class HexGrid : MonoBehaviour {
 	public int mapSizeY = 21;
 
 	string parentName = "";
-	Object hexPrefab;
 	float xOffset = 0.882f;
 	float zOffset = 0.764f;
 
@@ -15,10 +14,17 @@ public class HexGrid : MonoBehaviour {
 	Node[,] graph;
 	public TileType[] tileTypes;
 
-	Unit selectedUnit;
+	public QuillUnit selectedUnit;
 
 	void Start(){
+
+		//selectedUnit = (GameObject)Instantiate (player, new Vector3 (0, 0, 0), Quaternion.identity);
+		selectedUnit.GetComponent<QuillUnit>().tileX = (int)selectedUnit.transform.position.x;
+		selectedUnit.GetComponent<QuillUnit>().tileY = (int)selectedUnit.transform.position.y;
+		selectedUnit.GetComponent<QuillUnit>().map = this;
+
 		GenerateMapData ();
+		GeneratePathfindingGraph ();
 		generateHexGrid ();
 	}
 
@@ -28,7 +34,7 @@ public class HexGrid : MonoBehaviour {
 			for (int x = 0; x < mapSizeX; x++) {
 				for (int y = 0; y < mapSizeY; y++) {
 
-					float xPos = x * xOffset;
+				float xPos = x * xOffset;
 
 					// Are we on an odd row?
 					if (y % 2 == 1) {
@@ -131,7 +137,7 @@ public class HexGrid : MonoBehaviour {
 
 				// This is the 8-way connection version (allows diagonal movement)
 				// Try left
-				if(x > 0) {
+				/*if(x > 0) {
 					graph[x,y].neighbours.Add( graph[x-1, y] );
 					if(y > 0)
 						graph[x,y].neighbours.Add( graph[x-1, y-1] );
@@ -152,9 +158,29 @@ public class HexGrid : MonoBehaviour {
 				if(y > 0)
 					graph[x,y].neighbours.Add( graph[x, y-1] );
 				if(y < mapSizeY-1)
-					graph[x,y].neighbours.Add( graph[x, y+1] );
+					graph[x,y].neighbours.Add( graph[x, y+1] ); **/
 
 				// This also works with 6-way hexes and n-way variable areas (like EU4)
+				// try left
+				if (x > 0) {
+					graph [x, y].neighbours.Add ( graph[x - 1, y]);
+					//try left up
+					if(y > 0)
+						graph [x, y].neighbours.Add (graph[x , y + 1]);
+					//try left down
+					if(y< mapSizeY - 1)
+						graph [x, y].neighbours.Add (graph[x , y - 1]);
+				}
+				//try right
+				if (x < mapSizeX - 1) {
+					graph [x, y].neighbours.Add (graph[x + 1, y]);
+					//try left up
+					if (y > 0)
+						graph [x, y].neighbours.Add (graph[x + 1, y + 1]);
+					//try left down
+					if (y < mapSizeY - 1)
+						graph [x, y].neighbours.Add (graph[x + 1, y - 1]);
+				}
 			}
 		}
 	}
