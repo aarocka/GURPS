@@ -3,8 +3,8 @@ using UnityEditor;
 using System.Collections.Generic;
 
 public class HexGrid : MonoBehaviour {
-	public int mapSizeX= 21;
-	public int mapSizeY = 21;
+	public int mapSizeX= 5;
+	public int mapSizeY = 5;
 
 	string parentName = "";
 	float xOffset = 0.882f;
@@ -28,7 +28,10 @@ public class HexGrid : MonoBehaviour {
 		generateHexGrid ();
 	}
 
-
+	void Update(){
+		
+	}
+		
 	private void generateHexGrid (){
 
 			for (int x = 0; x < mapSizeX; x++) {
@@ -117,6 +120,7 @@ public class HexGrid : MonoBehaviour {
 				graph[x,y] = new Node();
 				graph[x,y].x = x;
 				graph[x,y].y = y;
+				//Debug.Log("Node" + x + ", " + y + " Created");
 			}
 		}
 
@@ -124,63 +128,36 @@ public class HexGrid : MonoBehaviour {
 		for(int x=0; x < mapSizeX; x++) {
 			for(int y=0; y < mapSizeX; y++) {
 
-				// This is the 4-way connection version:
-				/*				if(x > 0)
-					graph[x,y].neighbours.Add( graph[x-1, y] );
-				if(x < mapSizeX-1)
-					graph[x,y].neighbours.Add( graph[x+1, y] );
-				if(y > 0)
-					graph[x,y].neighbours.Add( graph[x, y-1] );
-				if(y < mapSizeY-1)
-					graph[x,y].neighbours.Add( graph[x, y+1] );
-*/
-
-				// This is the 8-way connection version (allows diagonal movement)
-				// Try left
-				/*if(x > 0) {
-					graph[x,y].neighbours.Add( graph[x-1, y] );
-					if(y > 0)
-						graph[x,y].neighbours.Add( graph[x-1, y-1] );
-					if(y < mapSizeY-1)
-						graph[x,y].neighbours.Add( graph[x-1, y+1] );
-				}
-
-				// Try Right
-				if(x < mapSizeX-1) {
-					graph[x,y].neighbours.Add( graph[x+1, y] );
-					if(y > 0)
-						graph[x,y].neighbours.Add( graph[x+1, y-1] );
-					if(y < mapSizeY-1)
-						graph[x,y].neighbours.Add( graph[x+1, y+1] );
-				}
-
-				// Try straight up and down
-				if(y > 0)
-					graph[x,y].neighbours.Add( graph[x, y-1] );
-				if(y < mapSizeY-1)
-					graph[x,y].neighbours.Add( graph[x, y+1] ); **/
+				Debug.Log("loop started");
 
 				// This also works with 6-way hexes and n-way variable areas (like EU4)
 				// try left
 				if (x > 0) {
 					graph [x, y].neighbours.Add ( graph[x - 1, y]);
-					//try left up
-					if(y > 0)
-						graph [x, y].neighbours.Add (graph[x , y + 1]);
+					Debug.Log ("left");
 					//try left down
-					if(y< mapSizeY - 1)
+					if(y > 0)
 						graph [x, y].neighbours.Add (graph[x , y - 1]);
+					Debug.Log("Left up");
+					//try left up
+					if(y< mapSizeY - 1)
+						graph [x, y].neighbours.Add (graph[x , y + 1]);
+					Debug.Log("left down");
 				}
 				//try right
 				if (x < mapSizeX - 1) {
 					graph [x, y].neighbours.Add (graph[x + 1, y]);
-					//try left up
-					if (y > 0)
-						graph [x, y].neighbours.Add (graph[x + 1, y + 1]);
+					Debug.Log ("Right");
 					//try left down
-					if (y < mapSizeY - 1)
+					if (y > 0)
 						graph [x, y].neighbours.Add (graph[x + 1, y - 1]);
+					Debug.Log ("Right up");
+					//try left up
+					if (y < mapSizeY - 1)
+						graph [x, y].neighbours.Add (graph[x + 1, y + 1]);
+					Debug.Log("Right down");
 				}
+				Debug.Log("neighbors created");
 			}
 		}
 	}
